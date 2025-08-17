@@ -23,7 +23,7 @@ const joinRoomBtn = document.getElementById('join-room-btn');
 const startMeetingBtn = document.getElementById('start-meeting-btn');
 const joinMeetingBtn = document.getElementById('join-meeting-btn');
 const hangupBtn = document.getElementById('hangup-btn');
-const fullscreenBtn = document.getElementById('fullscreen-btn'); // New: Fullscreen button
+const fullscreenBtn = document.getElementById('fullscreen-btn');
 
 const creatorEmail = document.getElementById('creator-email');
 const creatorPassword = document.getElementById('creator-password');
@@ -110,22 +110,22 @@ function toggleFullScreen() {
     if (!document.fullscreenElement) {
         if (meetingRoomElement.requestFullscreen) {
             meetingRoomElement.requestFullscreen();
-        } else if (meetingRoomElement.mozRequestFullScreen) { /* Firefox */
+        } else if (meetingRoomElement.mozRequestFullScreen) {
             meetingRoomElement.mozRequestFullScreen();
-        } else if (meetingRoomElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        } else if (meetingRoomElement.webkitRequestFullscreen) {
             meetingRoomElement.webkitRequestFullscreen();
-        } else if (meetingRoomElement.msRequestFullscreen) { /* IE/Edge */
+        } else if (meetingRoomElement.msRequestFullscreen) {
             meetingRoomElement.msRequestFullscreen();
         }
         fullscreenBtn.innerText = 'Exit Full Screen';
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        } else if (document.mozCancelFullScreen) { /* Firefox */
+        } else if (document.mozCancelFullScreen) {
             document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+        } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE/Edge */
+        } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
         fullscreenBtn.innerText = 'Full Screen';
@@ -162,6 +162,7 @@ async function setupRoom(id, password) {
     // Handle ICE candidates
     peerConnection.onicecandidate = (event) => {
         if (event.candidate) {
+            // Send candidate to the remote peer via Firebase
             roomRef.child('calleeCandidates').push(event.candidate);
         }
     };
@@ -208,6 +209,7 @@ async function joinRoom(id) {
     // Handle ICE candidates
     peerConnection.onicecandidate = (event) => {
         if (event.candidate) {
+            // Send candidate to the remote peer via Firebase
             roomRef.child('callerCandidates').push(event.candidate);
         }
     };
@@ -231,4 +233,4 @@ async function joinRoom(id) {
         const candidate = new RTCIceCandidate(snapshot.val());
         peerConnection.addIceCandidate(candidate);
     });
-}
+            }
