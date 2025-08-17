@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Video Call</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Created by T2</h1>
+    </header>
+
+    <main id="app">
+        <section id="start-page" class="page active">
+            <h2>Welcome</h2>
+            <button id="create-room-btn">Create a Room</button>
+            <button id="join-room-btn">Join a Room</button>
+        </section>
+
+        <section id="create-page" class="page">
+            <h2>Create a Room</h2>
+            <input type="email" id="creator-email" placeholder="Enter your Gmail">
+            <input type="password" id="creator-password" placeholder="Create a password">
+            <button id="start-meeting-btn">Start Meeting</button>
+        </section>
+
+        <section id="join-page" class="page">
+            <h2>Join a Room</h2>
+            <input type="password" id="join-password" placeholder="Enter password">
+            <button id="join-meeting-btn">Join</button>
+        </section>
+
+        <section id="meeting-room" class="page">
+            <div id="video-container">
+                <video id="local-video" autoplay muted></video>
+                <video id="remote-video" autoplay></video>
+            </div>
+            <div id="controls">
+                <button id="hangup-btn">Hang Up</button>
+                <button id="fullscreen-btn">Full Screen</button>
+            </div>
+            <h3 id="room-info"></h3>
+        </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
